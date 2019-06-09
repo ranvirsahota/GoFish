@@ -8,7 +8,6 @@ namespace GoFish
 {
     class AI : CardPlayer
     {
-
         public AI(string name) : base(name) { }
 
         public override void Decsion(bool isMyTurn, string cardSeeking = null, string fishFrom = null)
@@ -16,17 +15,36 @@ namespace GoFish
             if (isMyTurn)
             {
                 Console.WriteLine(Name + " turn");
-                int i = new Random().Next(0, Globals.CardPlayerNames.Count - 1);
-                if (Name == Globals.CardPlayerNames[i])
+                foreach (KeyValuePair<String, int> cardType in _cards)
                 {
-                    if (i == 0) { i++; }
-                    else if (i == Globals.CardPlayerNames.Count - 1) { i--; }
-                    else { i++; }
+                    foreach (KeyValuePair<string, List<string>> public_cards_of_cardplayer in Globals.PUBLICLY_KNOWN_CARDS)
+                    {
+                        foreach (string public_known_card in public_cards_of_cardplayer.Value)
+                         {
+                            if (cardType.Key.Equals(public_known_card))
+                            {
+                                public_cards_of_cardplayer.Value.RemoveAll(card => public_known_card.Equals(card));
+                                fishFrom = public_cards_of_cardplayer.Key;
+                                cardSeeking = public_known_card;
+                                goto End;
+                            }
+                        }
+                    }
                 }
-                fishFrom = Globals.CardPlayerNames[i];
-                cardSeeking = FindHighestCard();
+                if (cardSeeking == null || fishFrom == null) {
+                    int i = new Random().Next(0, Globals.CardPlayerNames.Count - 1);
+                    if (Name == Globals.CardPlayerNames[i])
+                    {
+                        if (i == 0) { i++; }
+                        else if (i == Globals.CardPlayerNames.Count - 1) { i--; }
+                        else { i++; }
+                    }
+                    fishFrom = Globals.CardPlayerNames[i];
+                    cardSeeking = FindHighestCard();
+                }
             }
-            base.Decsion(isMyTurn, cardSeeking, fishFrom);
+            End:
+                base.Decsion(isMyTurn, cardSeeking, fishFrom);
         }
 
         private String FindHighestCard()
