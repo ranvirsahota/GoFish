@@ -41,7 +41,7 @@ namespace GoFish
             if (_cards.ContainsKey(cardToAdd))
             {
                 _cards[cardToAdd] += cardCount;
-                _findBook(cardToAdd);
+                _tryToBook(cardToAdd);
             }
             else { _cards.Add(cardToAdd, cardCount); }
             CardCount += cardCount;
@@ -55,7 +55,7 @@ namespace GoFish
             else
             {
                 _goFish();
-            }
+            } 
         }
         private string _removeCard(string cardToRemove)
         {
@@ -91,13 +91,13 @@ namespace GoFish
             Console.WriteLine("Go Fish " + Globals.CARD_PLAYERS_FROM_TO_TRANSACTION[0]);
         }
         //Looks for cards of four that are the same                                  
-        private void _findBook(string cardToBook = null)
+        private void _tryToBook(string cardToBook = null)
         {
             if (_cards[cardToBook] == 4)
             {
                 _removeCard(cardToBook);
                 Books.Add(cardToBook);
-                Console.WriteLine(Name + " book: " + cardToBook);
+                Console.WriteLine(Name + "books: " + cardToBook);
             }
         }
     }
