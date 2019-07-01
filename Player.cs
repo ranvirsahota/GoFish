@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ namespace GoFish
         public Player(string name) : base(name) { Name = name; }
 
 
-        public override void Decsion(bool isMyTurn, string cardSeeking = null, string fishFrom = null)
+        public override void Decision(bool isMyTurn, string cardSeeking = null, string fishFrom = null)
         {
             while (true)
             {
@@ -37,7 +37,7 @@ namespace GoFish
                 }
                 break;
             }
-            base.Decsion(isMyTurn, cardSeeking, fishFrom);
+            base.Decision(isMyTurn, cardSeeking, fishFrom);
         }
     }
 }

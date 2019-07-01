@@ -22,7 +22,7 @@ namespace GoFish
             Globals.PUBLICLY_KNOWN_CARDS.Add(Name, new List<string> { name });
             Globals.CardPlayerNames.Add(Name);
         }
-        public virtual void Decsion(bool isMyTurn, string cardSeeking = null, string fishFrom = null)
+        public virtual void Decision(bool isMyTurn, string cardSeeking = null, string fishFrom = null)
         {
             _cardSeeking = cardSeeking;
 
