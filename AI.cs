@@ -10,14 +10,14 @@ namespace GoFish
     {
         public AI(string name) : base(name) { }
 
-        public override void Decsion(bool isMyTurn, string cardSeeking, string fishFrom)
+        public override void Decision(bool isMyTurn, string cardSeeking, string fishFrom)
         {
             if (isMyTurn && (cardSeeking == null && fishFrom == null))
             {
                 cardSeeking = selectRandomCard();
                 fishFrom = FindHighestCard();                                                                                                 
             }
-            base.Decsion(isMyTurn, cardSeeking, fishFrom);
+            base.Decision(isMyTurn, cardSeeking, fishFrom);
         }
 
         private String selectRandomCard()
