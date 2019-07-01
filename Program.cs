@@ -32,9 +32,9 @@ namespace GoFish
             var rnd = new Random();
             cards = cards.OrderBy(x => rnd.Next()).ToList<string>();
             Dictionary<string, CardPlayer> cardPlayers = new Dictionary<string, CardPlayer>() {
-                {"Jack", new AI("Jack")},
-                {"Archer", new AI("Archer")},
-                {"Mr Pickles", new AI("Mr Pickles")},
+                {"Jack", new DumbCardPlayer("Jack")},
+                {"Archer", new SmartCardPlayer("Archer")},
+                {"Mr Pickles", new SmartCardPlayer("Mr Pickles")},
                 {"Ranvir", new Player("Ranvir")}
             };
             for (int counter = 1; counter < 5; counter++)
@@ -73,18 +73,20 @@ namespace GoFish
                             if (Globals.Stack.Count >= 1)
                             {
                                 cardPlayer.Value.CardsSet(Globals.Stack[0]);
-                                Console.WriteLine("I got a: " + Globals.Stack[0]);
+                                Console.WriteLine("I got a: " + Globals.Stack[0]);//
+                                Globals.PUBLICLY_KNOWN_CARDS[cardPlayer.Key].Add(Globals.Stack[0]);
                                 Globals.Stack.Remove(Globals.Stack[0]);
                             }
                             else
                             {
                                 Globals.CardPlayerNames.Remove(cardPlayer.Key);
+                                Globals.PUBLICLY_KNOWN_CARDS.Remove(cardPlayer.Key);
                                 break;
                             }
                         }
                         try
                         {
-                            cardPlayer.Value.Decsion(true);
+                            cardPlayer.Value.Decision(true);
                         }
                         catch (CardPlayerDoesNotHaveCardType ex)
                         {
@@ -97,8 +99,10 @@ namespace GoFish
                             continue;
                         }
                         cardSeeking = Globals.CARD_TRANSACTION.Keys.First();
-
-                        cardPlayers[Globals.CARD_PLAYERS_FROM_TO_TRANSACTION[1]].Decsion(false, cardSeeking);
+                        if (!Globals.PUBLICLY_KNOWN_CARDS[cardPlayer.Key].Contains(cardSeeking)) {
+                            Globals.PUBLICLY_KNOWN_CARDS[cardPlayer.Key].Add(cardSeeking);
+                        }
+                        cardPlayers[Globals.CARD_PLAYERS_FROM_TO_TRANSACTION[1]].Decision(false, cardSeeking);
 
                         cardSeekingAmount = Globals.CARD_TRANSACTION[Globals.CARD_TRANSACTION.Keys.First()];
 
@@ -113,6 +117,7 @@ namespace GoFish
                             {
                                 cardPlayer.Value.CardsSet(Globals.Stack[0]);
                                 Console.WriteLine("I got a: " + Globals.Stack[0]);
+                                Globals.PUBLICLY_KNOWN_CARDS[cardPlayer.Key].Add(Globals.Stack[0]);
                                 if (Globals.Stack[0] != cardSeeking)
                                 {
                                     i++;
