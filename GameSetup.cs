@@ -9,12 +9,6 @@ namespace GoFish
     {
         public List<string> cards;
         public Dictionary<string, CardPlayer> cardPlayers;
-        private AIFactory aiFactory;
-
-        public GameSetup()
-        {
-            aiFactory = new AIFactory();
-        }
 
         private void createCardes()
         {
@@ -36,14 +30,17 @@ namespace GoFish
             };
         }
 
-        private void shufflecards()
-        {
-            cards = cards.OrderBy(x => new Random().Next()).ToList<string>();
-        }
+        private void shufflecards() { cards = cards.OrderBy(x => new Random().Next()).ToList<string>(); }
 
-        private void createAICardPlayers(string userInputAIName, string userInputAIType)
+        private void createPlayers()
         {
-            cardPlayers.Add(userInputAIName, aiFactory.makeAI(userInputAIName, userInputAIType));
+            cardPlayers = new Dictionary<string, CardPlayer>()
+            {
+                {"Jack", new DumbCardPlayer("Jack")},
+                {"Archer", new SmartCardPlayer("Archer")},
+                {"Mr Pickles", new SmartCardPlayer("Mr Pickles")},
+                {"Ranvir", new Player("Ranvir")}
+            };
         }
 
         private void handCards()
@@ -58,9 +55,6 @@ namespace GoFish
             }
         }
 
-        private void makeStack()
-        {
-            Globals.Stack = cards;
-        }
+        private void makeStack() { Globals.Stack = cards;  }
     }
 }

@@ -9,97 +9,94 @@ namespace GoFish
     public abstract class CardPlayer
     {
         public string Name { get; set; }
-        public List<string> books { get; set; } //group of same four cards
-        protected Dictionary<string, int> cards; //current hand
-        public int cardCount = 0;
-        private string cardSeeking;//card current player has asked another player for
+        public List<string> Books { get; set; } //group of same four cards
+        protected Dictionary<string, int> _cards; //current hand
+        public int CardCount = 0;
+        private string _cardSeeking;//card current player has asked another player for
 
         public CardPlayer(string name)
         {
             Name = name;
-            books = new List<string>();
-            cards = new Dictionary<string, int>() { };
-            Globals.PUBLICLY_KNOWNcarDS.Add(Name, new List<string> { name });
+            Books = new List<string>();
+            _cards = new Dictionary<string, int>() { };
+            Globals.PUBLICLY_KNOWN_CARDS.Add(Name, new List<string> { name });
             Globals.CardPlayerNames.Add(Name);
         }
         public virtual void Decision(bool isMyTurn, string cardSeeking = null, string fishFrom = null)
         {
-            this.cardSeeking = cardSeeking;
+            _cardSeeking = cardSeeking;
 
             if (isMyTurn)
             {
-                fishing(fishFrom);
+                _fishing(fishFrom);
             }
             else
             {
-                goFishOrHandCards();
+                GoFishOrHandCards();
             }
         }
 
         public void CardsSet(string cardToAdd, int cardCount = 1)
         {
-            if (cards.ContainsKey(cardToAdd))
+            if (_cards.ContainsKey(cardToAdd))
             {
-                cards[cardToAdd] += cardCount;
-                tryToBook(cardToAdd);
+                _cards[cardToAdd] += cardCount;
+                _tryToBook(cardToAdd);
             }
-            else
-            {
-                cards.Add(cardToAdd, cardCount);
-            }
-            cardCount += cardCount;
+            else { _cards.Add(cardToAdd, cardCount); }
+            CardCount += cardCount;
         }
-        private void goFishOrHandCards()
+        private void GoFishOrHandCards()
         {
-            if (cards.ContainsKey(cardSeeking))
+            if (_cards.ContainsKey(_cardSeeking))
             {
-                handCards();
+                _handCards();
             }
             else
             {
-                goFish();
+                _goFish();
             } 
         }
-        private string removeCard(string cardToRemove)
+        private string _removeCard(string cardToRemove)
         {
-            cardCount -= cards[cardToRemove];
-            cards.Remove(cardToRemove);
-            if (Globals.PUBLICLY_KNOWNcarDS[Name].Contains(cardToRemove))
+            CardCount -= _cards[cardToRemove];
+            _cards.Remove(cardToRemove);
+            if (Globals.PUBLICLY_KNOWN_CARDS[Name].Contains(cardToRemove))
             {
-                Globals.PUBLICLY_KNOWNcarDS[Name].Remove(cardToRemove);
+                Globals.PUBLICLY_KNOWN_CARDS[Name].Remove(cardToRemove);
             }
             return cardToRemove;
         }
 
-        private void fishing(string fishFrom)
+        private void _fishing(string fishFrom)
         {
             Globals.CARD_PLAYERS_FROM_TO_TRANSACTION[0] = Name;
             Globals.CARD_PLAYERS_FROM_TO_TRANSACTION[1] = fishFrom;
-            Globals.CARD_TRANSACTION.Add(cardSeeking, 0);
-            Console.WriteLine(Name + " fish for: " + cardSeeking + " from " + fishFrom);
+            Globals.CARD_TRANSACTION.Add(_cardSeeking, 0);
+            Console.WriteLine(Name + " fish for: " + _cardSeeking + " from " + fishFrom);
         }
 
-        private void handCards()
+        private void _handCards()
         {
-            if (cards.ContainsKey(cardSeeking))
+            if (_cards.ContainsKey(_cardSeeking))
             {
-                Globals.CARD_TRANSACTION[cardSeeking] = cards[cardSeeking];
-                Console.WriteLine(Name + " got: " + cardSeeking + " " + cards[cardSeeking]);
-                removeCard(cardSeeking);
+                Globals.CARD_TRANSACTION[_cardSeeking] = _cards[_cardSeeking];
+                Console.WriteLine(Name + " got: " + _cardSeeking + " " + _cards[_cardSeeking]);
+                _removeCard(_cardSeeking);
             }
         }
-        private void goFish()
+        private void _goFish()
         {
-            Globals.CARD_TRANSACTION[cardSeeking] = 0;
+            Globals.CARD_TRANSACTION[_cardSeeking] = 0;
             Console.WriteLine("Go Fish " + Globals.CARD_PLAYERS_FROM_TO_TRANSACTION[0]);
         }
         //Looks for cards of four that are the same                                  
-        private void tryToBook(string cardToBook = null)
+        private void _tryToBook(string cardToBook = null)
         {
-            if (cards[cardToBook] == 4)
+            if (_cards[cardToBook] == 4)
             {
-                removeCard(cardToBook);
-                books.Add(cardToBook);
+                _removeCard(cardToBook);
+                Books.Add(cardToBook);
                 Console.WriteLine(Name + "books: " + cardToBook);
             }
         }
