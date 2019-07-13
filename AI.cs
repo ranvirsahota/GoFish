@@ -22,14 +22,14 @@ namespace GoFish
 
         private String selectRandomCard()
         {
-            int i = new Random().Next(0, Globals.CardPlayerNames.Count - 1);
-            if (Name == Globals.CardPlayerNames[i])
+            int i = new Random().Next(0, Globals.CARD_PLAYER_NAMES.Count - 1);
+            if (Name == Globals.CARD_PLAYER_NAMES[i])
             {
                 if (i == 0) { i++; }
-                else if (i == Globals.CardPlayerNames.Count - 1) { i--; }
+                else if (i == Globals.CARD_PLAYER_NAMES.Count - 1) { i--; }
                 else { i++; }
             }
-           return Globals.CardPlayerNames[i];
+           return Globals.CARD_PLAYER_NAMES[i];
         }
 
         private String findHighestCard()
