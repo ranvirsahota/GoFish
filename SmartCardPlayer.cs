@@ -12,16 +12,16 @@ namespace GoFish
         {
             foreach (KeyValuePair<String, int> cardType in cards)
             {
-                foreach (KeyValuePair<string, List<string>> public_cards_of_cardplayer in Globals.PUBLICLY_KNOWN_CARDS)
+                foreach (KeyValuePair<string, List<string>> publicCardsOfCardplayer in Globals.PUBLICLY_KNOWN_CARDS)
                 {
-                    if (!public_cards_of_cardplayer.Key.Equals(Name))
+                    if (!publicCardsOfCardplayer.Key.Equals(Name))
                     {
-                        foreach (string public_knowncard in public_cards_of_cardplayer.Value)
+                        foreach (string public_knowncard in publicCardsOfCardplayer.Value)
                         {
                             if (cardType.Key.Equals(public_knowncard))
                             {
                                 cardSeeking = public_knowncard;
-                                fishFrom = public_cards_of_cardplayer.Key;
+                                fishFrom = publicCardsOfCardplayer.Key;
                                 break;
                             }
                         }
