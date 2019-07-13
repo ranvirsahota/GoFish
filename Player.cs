@@ -18,7 +18,7 @@ namespace GoFish
                 if (isMyTurn)
                 {
                     Console.WriteLine(Name + " turn");
-                    foreach (KeyValuePair<string, int> card in _cards)
+                    foreach (KeyValuePair<string, int> card in cards)
                     {
                         Console.WriteLine(card + " ");
                     }
@@ -30,7 +30,7 @@ namespace GoFish
                     }
                     Console.WriteLine("What card to fish:");
                     cardSeeking = Console.ReadLine();
-                    if (!_cards.ContainsKey(cardSeeking))
+                    if (!cards.ContainsKey(cardSeeking))
                     {
                         throw new CardPlayerDoesNotHaveCardType("Error " + Name);
                     }

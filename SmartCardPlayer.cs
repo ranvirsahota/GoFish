@@ -10,18 +10,18 @@ namespace GoFish
 
         public override void Decision(bool isMyTurn, string cardSeeking, string fishFrom)
         {
-            foreach (KeyValuePair<String, int> cardType in _cards)
+            foreach (KeyValuePair<String, int> cardType in cards)
             {
-                foreach (KeyValuePair<string, List<string>> public_cards_of_cardplayer in Globals.PUBLICLY_KNOWN_CARDS)
+                foreach (KeyValuePair<string, List<string>> publiccards_ofcardplayer in Globals.PUBLICLY_KNOWNcarDS)
                 {
-                    if (!public_cards_of_cardplayer.Key.Equals(Name))
+                    if (!publiccards_ofcardplayer.Key.Equals(Name))
                     {
-                        foreach (string public_known_card in public_cards_of_cardplayer.Value)
+                        foreach (string public_knowncard in publiccards_ofcardplayer.Value)
                         {
-                            if (cardType.Key.Equals(public_known_card))
+                            if (cardType.Key.Equals(public_knowncard))
                             {
-                                cardSeeking = public_known_card;
-                                fishFrom = public_cards_of_cardplayer.Key;
+                                cardSeeking = public_knowncard;
+                                fishFrom = publiccards_ofcardplayer.Key;
                                 break;
                             }
                         }

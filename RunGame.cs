@@ -16,25 +16,28 @@ namespace GoFish
                 {
                     if (currentWinner == null) { currentWinner = cardPlayer.Value; }
 
-                    if (currentWinner.Books.Count < cardPlayer.Value.Books.Count) { currentWinner = cardPlayer.Value; }
+                    if (currentWinner.books.Count < cardPlayer.Value.books.Count)
+                    {
+                        currentWinner = cardPlayer.Value;
+                    }
                     for (int i = 0; i < 1;)
                     {
                         string cardSeeking = null;
                         int cardSeekingAmount = 0;
 
-                        if (cardPlayer.Value.CardCount == 0)
+                        if (cardPlayer.Value.cardCount == 0)
                         {
                             if (Globals.Stack.Count >= 1)
                             {
                                 cardPlayer.Value.CardsSet(Globals.Stack[0]);
                                 Console.WriteLine("I got a: " + Globals.Stack[0]);
-                                Globals.PUBLICLY_KNOWN_CARDS[cardPlayer.Key].Add(Globals.Stack[0]);
+                                Globals.PUBLICLY_KNOWNcarDS[cardPlayer.Key].Add(Globals.Stack[0]);
                                 Globals.Stack.Remove(Globals.Stack[0]);
                             }
                             else
                             {
                                 Globals.CardPlayerNames.Remove(cardPlayer.Key);
-                                Globals.PUBLICLY_KNOWN_CARDS.Remove(cardPlayer.Key);
+                                Globals.PUBLICLY_KNOWNcarDS.Remove(cardPlayer.Key);
                                 break;
                             }
                         }
@@ -53,7 +56,7 @@ namespace GoFish
                             continue;
                         }
                         cardSeeking = Globals.CARD_TRANSACTION.Keys.First();
-                        if (!Globals.PUBLICLY_KNOWN_CARDS[cardPlayer.Key].Contains(cardSeeking)) { Globals.PUBLICLY_KNOWN_CARDS[cardPlayer.Key].Add(cardSeeking); }
+                        if (!Globals.PUBLICLY_KNOWNcarDS[cardPlayer.Key].Contains(cardSeeking)) { Globals.PUBLICLY_KNOWNcarDS[cardPlayer.Key].Add(cardSeeking); }
                         cardPlayers[Globals.CARD_PLAYERS_FROM_TO_TRANSACTION[1]].Decision(false, cardSeeking);
 
                         cardSeekingAmount = Globals.CARD_TRANSACTION[Globals.CARD_TRANSACTION.Keys.First()];
@@ -66,7 +69,7 @@ namespace GoFish
                             {
                                 cardPlayer.Value.CardsSet(Globals.Stack[0]);
                                 Console.WriteLine("I got a: " + Globals.Stack[0]);
-                                Globals.PUBLICLY_KNOWN_CARDS[cardPlayer.Key].Add(Globals.Stack[0]);
+                                Globals.PUBLICLY_KNOWNcarDS[cardPlayer.Key].Add(Globals.Stack[0]);
                                 if (Globals.Stack[0] != cardSeeking)
                                 {
                                     i++;
