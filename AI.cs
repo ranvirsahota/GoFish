@@ -15,7 +15,7 @@ namespace GoFish
             if (isMyTurn && (cardSeeking == null && fishFrom == null))
             {
                 cardSeeking = selectRandomCard();
-                fishFrom = FindHighestCard();                                                                                                 
+                fishFrom = findHighestCard();                                                                                                 
             }
             base.Decision(isMyTurn, cardSeeking, fishFrom);
         }
@@ -32,10 +32,10 @@ namespace GoFish
            return Globals.CardPlayerNames[i];
         }
 
-        private String FindHighestCard()
+        private String findHighestCard()
         {
             KeyValuePair<string, int> highestCard = new KeyValuePair<string, int>(null, 0);
-            foreach (KeyValuePair<string, int> cardType in _cards)
+            foreach (KeyValuePair<string, int> cardType in cards)
             {
                 if (cardType.Value > highestCard.Value) { highestCard = new KeyValuePair<string, int>(cardType.Key, cardType.Value); }
             }
