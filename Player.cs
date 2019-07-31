@@ -8,7 +8,12 @@ namespace GoFish
 {
     class Player : CardPlayer
     {
-        public Player(string name) : base(name) { Name = name; }
+        private UI ui;
+        public Player(string name) : base(name)
+        {
+            Name = name;
+            ui = new UI();
+        }
 
 
         public override void Decision(bool isMyTurn, string cardSeeking = null, string fishFrom = null)
@@ -22,14 +27,12 @@ namespace GoFish
                     {
                         Console.WriteLine(card + " ");
                     }
-                    Console.WriteLine("Who to fish from:");
-                    fishFrom = Console.ReadLine();
-                    if (!Globals.CardPlayerNames.Contains(fishFrom))
+                    fishFrom = ui.enterCardPlayerToFishFrom();
+                    if (!Globals.CARD_PLAYER_NAMES.Contains(fishFrom))
                     {
                         throw new CardPlayerDoesNotExsist("Error " + Name);
                     }
-                    Console.WriteLine("What card to fish:");
-                    cardSeeking = Console.ReadLine();
+                    cardSeeking = ui.enterCardPlayerSeeking(new List<string>(cards.Keys));
                     if (!cards.ContainsKey(cardSeeking))
                     {
                         throw new CardPlayerDoesNotHaveCardType("Error " + Name);
