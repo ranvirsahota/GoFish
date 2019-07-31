@@ -14,13 +14,13 @@ namespace GoFish
         {
             if (isMyTurn && (cardSeeking == null && fishFrom == null))
             {
-                cardSeeking = selectRandomCard();
-                fishFrom = findHighestCard();                                                                                                 
+                cardSeeking = findHighestCard();
+                fishFrom = selectRandomCardPlayerFishFrom();                                                                                                 
             }
             base.Decision(isMyTurn, cardSeeking, fishFrom);
         }
 
-        private String selectRandomCard()
+        private String selectRandomCardPlayerFishFrom()
         {
             int i = new Random().Next(0, Globals.CARD_PLAYER_NAMES.Count - 1);
             if (Name == Globals.CARD_PLAYER_NAMES[i])
