@@ -20,7 +20,7 @@ namespace GoFish
             Books = new List<string>();
             cards = new Dictionary<string, int>() { };
             Globals.PUBLICLY_KNOWN_CARDS.Add(Name, new List<string> { name });
-            Globals.CardPlayerNames.Add(Name);
+            Globals.CARD_PLAYER_NAMES.Add(Name);
         }
         public virtual void Decision(bool isMyTurn, string cardSeeking = null, string fishFrom = null)
         {
