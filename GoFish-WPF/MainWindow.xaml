@@ -13,21 +13,22 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="40"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Card Players" FontSize="25"/>
-        <ListView Name="cardPlayers" Grid.Column="0" Grid.Row="1" SelectionMode="Single" />
-
+        <ListView Name="cardPlayers" Grid.Column="0" Grid.Row="1" SelectionMode="Single" DisplayMemberPath="Name" SelectedValuePath="@Name"/>
+        
+        
         <TextBlock Grid.Column="1" Grid.Row="0" Text="Hand" FontSize="25"/>
         <ListView Name="hand" Grid.Column="1" Grid.Row="1"/>
 
-        <Button Name="fishFor" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Content="Fish"/>
+        <Button Name="fishFor" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Content="Fish" Click="fishFor_Click"/>
 
+        <ListView Name="log" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"/>
     </Grid>
 </Window>
